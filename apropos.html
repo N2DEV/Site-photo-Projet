@@ -1,0 +1,498 @@
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À Propos | Portfolio Créatif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --accent-color: #FFD700;
+    --text-color: #333;
+    --bg-color: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    padding: 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 120px auto 0;
+    padding: 2rem;
+}
+
+.about-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 6rem;
+    align-items: center;
+}
+
+.profile-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.profile-image img {
+    width: 100%;
+    height: auto;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+
+.profile-image:hover img {
+    transform: scale(1.05);
+}
+
+.profile-info {
+    padding-right: 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.about-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+.skills-section {
+    margin-top: 4rem;
+    padding: 4rem 0;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.skill-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+}
+
+.skill-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+    fill: var(--accent-color);
+}
+
+.skill-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.skill-description {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.experience-section {
+    margin-top: 4rem;
+}
+
+.experience-timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-date {
+    text-align: right;
+    padding-right: 2rem;
+    border-right: 3px solid var(--accent-color);
+    font-weight: 600;
+}
+
+.timeline-content {
+    padding-left: 2rem;
+    position: relative;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    background: var(--accent-color);
+    border-radius: 50%;
+}
+
+.timeline-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-company {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.awards-section {
+    margin-top: 4rem;
+    padding: 4rem 0;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.award-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.award-card:hover {
+    transform: translateY(-5px);
+}
+
+.award-icon {
+    width: 40px;
+    height: 40px;
+    fill: var(--accent-color);
+}
+
+.award-content h3 {
+    margin-bottom: 0.5rem;
+}
+
+.award-content p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .profile-info {
+        padding-right: 0;
+    }
+
+    .timeline-item {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-date {
+        text-align: left;
+        border-right: none;
+        padding-right: 0;
+        margin-bottom: 1rem;
+    }
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">STUDIO</a>
+            <div class="nav-links">
+                <a href="projets.html">Projets</a>
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="about-container">
+        <section class="about-hero">
+            <div class="profile-image">
+                <img src="image/photoquelqun.jpg" alt="Portrait créatif d'un designer en studio" width="800" height="800">
+            </div>
+            <div class="profile-info">
+                <h1 class="section-title">À propos</h1>
+                <p class="about-text">
+                    Designer graphique passionné avec plus de 8 ans d'expérience dans la création d'identités visuelles percutantes et de solutions design innovantes. Mon approche combine créativité, stratégie et attention aux détails pour donner vie à des projets uniques qui captivent et engagent.
+                </p>
+                <p class="about-text">
+                    Basé à Paris, je collabore avec des marques et des entreprises du monde entier pour créer des expériences visuelles mémorables qui racontent des histoires et connectent avec leur public.
+                </p>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <h2 class="section-title">Compétences</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <svg class="skill-icon" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+                    </svg>
+                    <h3 class="skill-title">Design Graphique</h3>
+                    <p class="skill-description">Maîtrise des outils Adobe Creative Suite et création d'identités visuelles complètes.</p>
+                </div>
+
+                <div class="skill-card">
+                    <svg class="skill-icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm16 2H4v12h16V6z"/>
+                        <path d="M6 8h12v2H6zM6 12h8v2H6z"/>
+                    </svg>
+                    <h3 class="skill-title">UI/UX Design</h3>
+                    <p class="skill-description">Conception d'interfaces utilisateur intuitives et d'expériences digitales engageantes.</p>
+                </div>
+
+                <div class="skill-card">
+                    <svg class="skill-icon" viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                    <h3 class="skill-title">Direction Artistique</h3>
+                    <p class="skill-description">Supervision créative de projets et définition de lignes directrices visuelles.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="experience-section">
+            <h2 class="section-title">Expérience</h2>
+            <div class="experience-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - Présent</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Directeur Artistique Senior</h3>
+                        <p class="timeline-company">Studio Créatif Paris</p>
+                        <p>Direction créative de projets majeurs pour des clients internationaux. Supervision d'une équipe de designers et développement de stratégies créatives innovantes.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2017 - 2020</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Designer Graphique Senior</h3>
+                        <p class="timeline-company">Agence Design Plus</p>
+                        <p>Création d'identités visuelles et de campagnes publicitaires pour des marques de luxe et de mode.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2015 - 2017</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Designer UI/UX</h3>
+                        <p class="timeline-company">Digital Innovation Lab</p>
+                        <p>Conception d'interfaces utilisateur et d'expériences digitales pour applications mobiles et sites web.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="awards-section">
+            <h2 class="section-title">Reconnaissances</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <svg class="award-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
+                    <div class="award-content">
+                        <h3>Prix Excellence Design</h3>
+                        <p>2022 - Association des Designers</p>
+                    </div>
+                </div>
+
+                <div class="award-card">
+                    <svg class="award-icon" viewBox="0 0 24 24">
+                        <path d="M20 6H4V4h16v2zm1 2H3c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 11H4v-9h16v9z"/>
+                    </svg>
+                    <div class="award-content">
+                        <h3>Meilleure Interface Digitale</h3>
+                        <p>2021 - Digital Design Awards</p>
+                    </div>
+                </div>
+
+                <div class="award-card">
+                    <svg class="award-icon" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                        <path d="M12 12c1.65 0 3-1.35 3-3s-1.35-3-3-3-3 1.35-3 3 1.35 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm6 8.58c0-2.5-3.97-3.58-6-3.58s-6 1.08-6 3.58V18h12v-1.42zM8.48 16c.74-.51 2.23-1 3.52-1s2.78.49 3.52 1H8.48z"/>
+                    </svg>
+                    <div class="award-content">
+                        <h3>Young Creative Leader</h3>
+                        <p>2020 - Creative Direction Forum</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation au scroll pour les sections
+    const sections = document.querySelectorAll('section');
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(20px)";
+        section.style.transition = "all 0.6s ease-out";
+        observer.observe(section);
+    });
+
+    // Animation des cartes de compétences
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach((card, index) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "all 0.3s ease-out";
+        card.style.transitionDelay = `${index * 0.1}s`;
+        
+        setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+        }, 300 + (index * 100));
+    });
+
+    // Animation de la timeline
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach((item, index) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateX(-20px)";
+        item.style.transition = "all 0.4s ease-out";
+        item.style.transitionDelay = `${index * 0.2}s`;
+        
+        setTimeout(() => {
+            item.style.opacity = "1";
+            item.style.transform = "translateX(0)";
+        }, 600 + (index * 200));
+    });
+
+    // Animation des cartes de récompenses
+    const awardCards = document.querySelectorAll('.award-card');
+    awardCards.forEach((card, index) => {
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.9)";
+        card.style.transition = "all 0.3s ease-out";
+        card.style.transitionDelay = `${index * 0.1}s`;
+        
+        setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+        }, 900 + (index * 100));
+    });
+});
+</script>
+
+</body></html>

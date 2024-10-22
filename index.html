@@ -1,0 +1,634 @@
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Créatif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --accent-color: #FFD700;
+    --text-color: #333;
+    --bg-color: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    padding: 2rem;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gallery {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.project-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.05);
+}
+
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Style pour la section À propos */
+.about {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-image {
+    flex: 1;
+    position: relative;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.about h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.about p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #e5c100;
+    transform: translateY(-2px);
+}
+
+/* Style pour la page À propos complète */
+.about-page {
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 2rem;
+}
+
+.about-page-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    margin-top: 4rem;
+}
+
+.about-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.skills {
+    margin-top: 2rem;
+}
+
+.skill-item {
+    margin-bottom: 1rem;
+}
+
+.skill-name {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.skill-level {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.contact-section {
+    padding: 8rem 2rem;
+    background-color: #f8f8f8;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+input, textarea {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+button {
+    padding: 1rem 2rem;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #e5c100;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonials {
+    background-color: #f8f8f8;
+    padding: 6rem 2rem;
+    overflow: hidden;
+}
+
+.testimonials-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonials-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.testimonials-carousel {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.testimonial-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.testimonial-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+}
+
+.testimonial-content {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    position: relative;
+    padding: 0 2rem;
+}
+
+.testimonial-content::before,
+.testimonial-content::after {
+    content: '"';
+    font-size: 4rem;
+    color: var(--accent-color);
+    position: absolute;
+    opacity: 0.2;
+}
+
+.testimonial-content::before {
+    top: -2rem;
+    left: -1rem;
+}
+
+.testimonial-content::after {
+    bottom: -3rem;
+    right: -1rem;
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-position {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.carousel-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.carousel-button {
+    background: none;
+    border: 2px solid var(--accent-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.carousel-button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .about-page-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">STUDIO</a>
+            <div class="nav-links">
+                <a href="projets.html">Projets</a>
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page d'accueil -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Design & Création</h1>
+            <p>Explorer les frontières du design visuel et de la photographie créative</p>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="project-card">
+            <img src="image/design.png" alt="Design projet moderne, composition abstraite avec formes géométriques" width="600" height="400">
+            <div class="project-info">
+                <h3>Projet Design</h3>
+                <p>Conception graphique minimaliste</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <img src="image/ville.png" alt="Photographie artistique en noir et blanc d'un paysage urbain" width="600" height="400">
+            <div class="project-info">
+                <h3>Photo Urbaine</h3>
+                <p>Série photographique documentaire</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <img src="image/branding.png" alt="Projet de branding avec logo et identité visuelle" width="600" height="400">
+            <div class="project-info">
+                <h3>Branding</h3>
+                <p>Identité visuelle corporate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À propos (version courte) -->
+    <section class="about">
+        <div class="about-image">
+            <img src="image/photoquelqun.jpg" alt="Portrait professionnel du designer créatif" width="400" height="600">
+        </div>
+        <div class="about-content">
+            <h2>À propos</h2>
+            <p>Designer graphique passionné avec plus de 8 ans d'expérience dans la création d'identités visuelles percutantes. Mon approche combine esthétique minimaliste et narration visuelle pour donner vie aux idées les plus audacieuses. Formé à l'École des Arts Décoratifs de Paris, j'ai collaboré avec des marques internationales tout en développant des projets personnels explorant les frontières entre art numérique et design traditionnel.</p>
+            <a href="apropos.html" class="cta-button">En savoir plus</a>
+        </div>
+    </section>
+
+
+
+    <!-- Section Témoignages -->
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <h2 class="testimonials-title">Ce que disent nos clients</h2>
+            <div class="testimonials-carousel">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-content">"Un travail exceptionnel ! Le résultat final dépasse toutes nos attentes. La créativité et le professionnalisme sont vraiment au rendez-vous."</p>
+                    <div class="testimonial-author">Marie Laurent</div>
+                    <div class="testimonial-position">Directrice Marketing, Tech Solutions</div>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"Une collaboration très enrichissante. La capacité à comprendre nos besoins et à les transformer en design percutant est impressionnante."</p>
+                    <div class="testimonial-author">Thomas Dubois</div>
+                    <div class="testimonial-position">Fondateur, Studio Créatif</div>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"Un véritable expert dans son domaine. La qualité du travail et l'attention aux détails font toute la différence."</p>
+                    <div class="testimonial-author">Sophie Martin</div>
+                    <div class="testimonial-position">Directrice Artistique, Agence Web</div>
+                </div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-button prev" aria-label="Précédent">←</button>
+                <button class="carousel-button next" aria-label="Suivant">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Parlons de votre projet</h3>
+                    <p>Vous avez un projet en tête ? N'hésitez pas à me contacter pour en discuter.</p>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer pour les animations au scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // Observer les cartes de projets
+    document.querySelectorAll('.project-card, .about, .contact-section').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Animation des barres de compétences
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.width = entry.target.getAttribute('data-width');
+            }
+        });
+    });
+
+    document.querySelectorAll('.skill-level').forEach(skill => {
+        skillObserver.observe(skill);
+    });
+
+    // Gestion du formulaire de contact
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Ajoutez ici la logique d'envoi du formulaire
+            alert('Message envoyé avec succès!');
+            contactForm.reset();
+        });
+    }
+
+    // Carousel functionality
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            slide.style.transform = 'translateX(100px)';
+            slide.style.opacity = '0';
+        });
+        
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        
+        // Add a small delay to ensure the transition is visible
+        setTimeout(() => {
+            slides[currentSlide].style.transform = 'translateX(0)';
+            slides[currentSlide].style.opacity = '1';
+        }, 50);
+    }
+
+    if (prevButton && nextButton) {
+        prevButton.addEventListener('click', () => showSlide(currentSlide - 1));
+        nextButton.addEventListener('click', () => showSlide(currentSlide + 1));
+    }
+
+    // Auto advance slides every 6 seconds
+    setInterval(() => showSlide(currentSlide + 1), 6000);
+});
+</script>
+
+</body></html>

@@ -1,0 +1,508 @@
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projets | Portfolio Créatif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --accent-color: #FFD700;
+    --text-color: #333;
+    --bg-color: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    padding: 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.filter-container {
+    margin-top: 100px;
+    padding: 2rem;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.filter-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-color);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.filter-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.filter-button:hover::after,
+.filter-button.active::after {
+    width: 80%;
+}
+
+.filter-button.active {
+    font-weight: 600;
+}
+
+.projects-grid {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.project-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-10px);
+}
+
+.project-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-item:hover .project-image {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.project-item:hover .project-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-category {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.project-description {
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.modal-details {
+    margin-top: 2rem;
+}
+
+.modal-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.modal-description {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.modal-metadata {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.metadata-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.metadata-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.metadata-value {
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">STUDIO</a>
+            <div class="nav-links">
+                <a href="projets.html">Projets</a>
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="filter-container">
+        <div class="filter-buttons">
+            <button class="filter-button active" data-filter="all">Tous</button>
+            <button class="filter-button" data-filter="design">Design Graphique</button>
+            <button class="filter-button" data-filter="photo">Photographie</button>
+            <button class="filter-button" data-filter="branding">Branding</button>
+            <button class="filter-button" data-filter="digital">Digital</button>
+        </div>
+    </div>
+
+    <div class="projects-grid">
+        <!-- Projet 1 -->
+        <article class="project-item" data-category="design">
+            <img src="image/projet/minimalist.jpg" alt="Design minimaliste pour une marque de luxe" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">Essence Minimaliste</h3>
+                <span class="project-category">Design Graphique</span>
+                <p class="project-description">Une approche minimaliste pour une marque de luxe, mettant en valeur l'élégance à travers la simplicité.</p>
+            </div>
+        </article>
+
+        <!-- Projet 2 -->
+        <article class="project-item" data-category="photo">
+            <img src="image/projet/urbanstory.jpg" alt="Série photographique urbaine en noir et blanc" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">Urban Stories</h3>
+                <span class="project-category">Photographie</span>
+                <p class="project-description">Une exploration visuelle de la vie urbaine à travers une série de photographies en noir et blanc.</p>
+            </div>
+        </article>
+
+        <!-- Projet 3 -->
+        <article class="project-item" data-category="branding">
+            <img src="image/projet/techstartup.jpg" alt="Identité visuelle complète pour une startup" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">Tech Startup Branding</h3>
+                <span class="project-category">Branding</span>
+                <p class="project-description">Création d'une identité visuelle moderne et dynamique pour une startup innovante.</p>
+            </div>
+        </article>
+
+        <!-- Projet 4 -->
+        <article class="project-item" data-category="digital">
+            <img src="image/projet/appdesign.jpg" alt="Interface utilisateur pour une application mobile" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">App Design</h3>
+                <span class="project-category">Digital</span>
+                <p class="project-description">Design d'interface utilisateur intuitif et moderne pour une application mobile.</p>
+            </div>
+        </article>
+
+        <!-- Projet 5 -->
+        <article class="project-item" data-category="design">
+            <img src="image/projet/festivalposter.jpg" alt="Affiche événementielle créative" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">Festival Poster</h3>
+                <span class="project-category">Design Graphique</span>
+                <p class="project-description">Création d'une affiche percutante pour un festival de musique contemporaine.</p>
+            </div>
+        </article>
+
+        <!-- Projet 6 -->
+        <article class="project-item" data-category="photo">
+            <img src="image/projet/portait.jpg" alt="Série de portraits artistiques" class="project-image" width="800" height="600">
+            <div class="project-overlay">
+                <h3 class="project-title">Portraits</h3>
+                <span class="project-category">Photographie</span>
+                <p class="project-description">Une série de portraits intimistes capturant l'essence de chaque sujet.</p>
+            </div>
+        </article>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img src="" alt="" class="modal-image">
+            <div class="modal-details">
+                <h2 class="modal-title"></h2>
+                <p class="modal-description"></p>
+                <div class="modal-metadata">
+                    <div class="metadata-item">
+                        <span class="metadata-label">Catégorie</span>
+                        <span class="metadata-value category"></span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Date</span>
+                        <span class="metadata-value date"></span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Client</span>
+                        <span class="metadata-value client"></span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Rôle</span>
+                        <span class="metadata-value role"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filtrage des projets
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const projects = document.querySelectorAll('.project-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Mise à jour des boutons actifs
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            const filter = this.getAttribute('data-filter');
+
+            // Animation des projets
+            projects.forEach(project => {
+                project.style.opacity = '0';
+                project.style.transform = 'scale(0.8)';
+                
+                setTimeout(() => {
+                    if (filter === 'all' || project.getAttribute('data-category') === filter) {
+                        project.style.display = 'block';
+                        setTimeout(() => {
+                            project.style.opacity = '1';
+                            project.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        project.style.display = 'none';
+                    }
+                }, 300);
+            });
+        });
+    });
+
+    // Gestion du modal
+    const modal = document.querySelector('.modal');
+    const modalClose = document.querySelector('.modal-close');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    projectItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const image = this.querySelector('.project-image').src;
+            const title = this.querySelector('.project-title').textContent;
+            const description = this.querySelector('.project-description').textContent;
+            const category = this.querySelector('.project-category').textContent;
+
+            // Remplir le modal avec les données du projet
+            modal.querySelector('.modal-image').src = image;
+            modal.querySelector('.modal-title').textContent = title;
+            modal.querySelector('.modal-description').textContent = description;
+            modal.querySelector('.metadata-value.category').textContent = category;
+            
+            // Ajouter des données fictives pour la démonstration
+            modal.querySelector('.metadata-value.date').textContent = '2023';
+            modal.querySelector('.metadata-value.client').textContent = 'Client Exemple';
+            modal.querySelector('.metadata-value.role').textContent = 'Direction Artistique';
+
+            // Afficher le modal avec animation
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 50);
+        });
+    });
+
+    modalClose.addEventListener('click', () => {
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    });
+
+    // Fermer le modal en cliquant en dehors
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // Animation au scroll
+    const projectsFadeIn = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    projects.forEach(project => {
+        project.style.opacity = '0';
+        project.style.transform = 'translateY(20px)';
+        projectsFadeIn.observe(project);
+    });
+});
+</script>
+
+</body></html>
